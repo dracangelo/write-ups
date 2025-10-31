@@ -57,7 +57,7 @@ sudo netdiscover -r 192.168.57.0/24 -i vboxnet1
 
 ```
 <screenshot of network scan showing target IP identification>
-![network scan](screenshot of network scan.png)
+![network scan](screenshot_of_network_scan.png)
 ```
 
 ---
