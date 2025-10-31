@@ -55,10 +55,7 @@ sudo netdiscover -r 192.168.57.0/24 -i vboxnet1
 - Network Range: 192.168.57.0/24
 - Interface: vboxnet1
 
-```
-<screenshot of network scan showing target IP identification>
 ![network scan](screenshot_of_network_scan.png)
-```
 
 ---
 
@@ -90,9 +87,10 @@ nmap -sV -sS -sC -Pn -O -oN ricky.txt 192.168.57.4
 | 22222 | SSH | OpenSSH 7.5 (protocol 2.0) | Alternative SSH port |
 | 60000 | Unknown | - | Custom service (Rick's backdoor) |
 
-```
-<screenshot of detailed nmap scan results>
-```
+
+![detailed nmap scan results](screenshot_of_detailed_scan.png)
+
+---
 
 **Analysis:** The target is running multiple services including standard services on non-standard ports, which suggests potential backdoors and misconfigurations.
 
@@ -114,9 +112,9 @@ gobuster dir -u http://192.168.57.4 -w /usr/share/wordlists/dirbuster/directory-
 /passwords            (Status: 301) [Size: 238] [--> http://192.168.57.4/passwords/]
 ```
 
-```
-<screenshot of gobuster results>
-```
+![gobuster results results](screenshot_of_gobuster_results.png)
+
+---
 
 **Web Application Analysis:**
 
@@ -129,17 +127,12 @@ gobuster dir -u http://192.168.57.4 -w /usr/share/wordlists/dirbuster/directory-
 - HTML source code revealed hidden comment: `<!--Password: winter-->`
 - This password appeared to be a potential credential for SSH access
 
-```
-<screenshot of /passwords directory and HTML source>
-```
 
 **Port 9090 Web Service:**
 - Cockpit web management interface
 - Discovered FLAG: **FLAG{There is no Zeus, in your face!}** - 10 Points
 
-```
-<screenshot of port 9090 flag>
-```
+![port 9090 flag](screenshot_of_port_9090_flag.png)
 
 #### Robots.txt Analysis
 
@@ -173,10 +166,6 @@ They're Robots Morty! It's ok to shoot them! They're just Robots!
 ```
 Result: Successfully listed contents of /etc/ directory
 
-```
-<screenshot of command injection in tracertool.cgi>
-```
-
 **User Enumeration via Command Injection:**
 ```
 ;tail /etc/passwd
@@ -187,9 +176,7 @@ Result: Successfully listed contents of /etc/ directory
 - Morty
 - Summer
 
-```
-<screenshot showing discovered users>
-```
+![command injection](screenshot_of_command_injection.png)
 
 ### 2.3 Service-Specific Enumeration
 
@@ -207,9 +194,7 @@ ftp 192.168.57.4
 - Discovered FLAG.txt file
 - Retrieved flag: **FLAG{Whoa this is unexpected}** - 10 Points
 
-```
-<screenshot of FTP anonymous login and flag retrieval>
-```
+![FTP anonymous](screenshot_of_ftp_enumeration.png)
 
 #### SSH Enumeration (Port 22222)
 
@@ -220,6 +205,7 @@ Using the password "winter" discovered from HTML comments and username "Summer":
 ```
 ssh Summer@192.168.57.4 -p 22222
 ```
+
 
 **Result:** Successful authentication
 
@@ -247,9 +233,7 @@ grep '[a-zA-Z0-9]' FLAG.txt
 
 **Flag Retrieved:** **FLAG{Get off the high road Summer!}** - 10 Points
 
-```
-<screenshot of SSH login and flag retrieval>
-```
+![ssh enumerstion](screenshot_of_ssh_enumeration.png)
 
 **Additional Enumeration:**
 
@@ -270,10 +254,7 @@ Found two interesting files:
 scp -P 22222 Summer@192.168.57.4:/home/Morty/journal.txt.zip ./
 scp -P 22222 Summer@192.168.57.4:/home/Morty/Safe_Password.jpg ./
 ```
-
-```
-<screenshot of scp file transfers>
-```
+we are using scp as a safe copy method and is also the easiest way to transfer 
 
 **Password Extraction from Image:**
 
@@ -283,9 +264,7 @@ strings Safe_Password.jpg
 
 **Discovered Password:** "Meeseek"
 
-```
-<screenshot of strings output showing password>
-```
+![strings output showing password](screenshot_of_strings_Safe_Password.png)
 
 **ZIP File Extraction:**
 
@@ -301,10 +280,6 @@ cat journal.txt
 ```
 
 **Flag Retrieved:** **FLAG{131333}** - 20 Points
-
-```
-<screenshot of journal.txt contents>
-```
 
 **RickSanchez's Directory Investigation:**
 
@@ -351,10 +326,6 @@ Follow these clues, in order:
 One of the words in my old bands name.
 ```
 
-```
-<screenshot of safe execution and password hints>
-```
-
 #### Netcat Enumeration (Ports 13337 & 60000)
 
 **Port 13337:**
@@ -364,9 +335,7 @@ nc 192.168.57.4 13337
 
 **Flag Retrieved:** **FLAG{TheyFoundMyBackDoorMorty}** - 10 Points
 
-```
-<screenshot of nc connection to port 13337>
-```
+![nc connection](screenshot_of_nc_enumeration.png)
 
 **Port 60000:**
 ```
@@ -375,9 +344,8 @@ nc 192.168.57.4 60000
 
 **Flag Retrieved:** **FLAG{Flip the pickle Morty!}** - 10 Points
 
-```
-<screenshot of nc connection to port 60000>
-```
+![nc connection](screenshot_of_nc_enumeration.png)
+
 
 ---
 
@@ -391,10 +359,9 @@ nc 192.168.57.4 60000
 - **CVE:** N/A (Misconfiguration)
 - **Description:** The FTP server allows anonymous authentication without password requirements, enabling unauthorized access to files and information disclosure.
 - **Impact:** Information disclosure, potential credential harvesting
-- **Evidence:**
-```
-<screenshot of anonymous FTP login>
-```
+- **Evidence:**`
+
+![anonymous ftp login connection](screenshot_of_ftp_enumeration.png)
 
 **Vulnerability #2: Command Injection in CGI Script**
 - **Severity:** Critical
@@ -408,9 +375,8 @@ Payload: ;tail /etc/passwd
 Result: Successfully enumerated system users
 ```
 - **Evidence:**
-```
-<screenshot of command injection exploitation>
-```
+
+![command injection exploitation](screenshot_of_command_injection.png)
 
 **Vulnerability #3: Weak Password Protection**
 - **Severity:** High
@@ -997,3 +963,7 @@ nc 192.168.57.4 60000
 **Contact:** [Your Contact Information]  
 
 **Disclaimer:** This penetration test was conducted on an isolated virtual machine environment for educational purposes. All activities were authorized and contained within a controlled lab setting.
+
+
+git config --global user.email "kelvinmbuguaw.com"
+  git config --global user.name "dracangelo"
