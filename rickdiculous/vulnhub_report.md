@@ -963,7 +963,3 @@ nc 192.168.57.4 60000
 **Contact:** [Your Contact Information]  
 
 **Disclaimer:** This penetration test was conducted on an isolated virtual machine environment for educational purposes. All activities were authorized and contained within a controlled lab setting.
-
-
-git config --global user.email "kelvinmbuguaw.com"
-  git config --global user.name "dracangelo"
