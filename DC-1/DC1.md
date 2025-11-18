@@ -806,11 +806,7 @@ nc 192.168.57.7 60000
 ---
 
 **Report Prepared By:** Kelvin Mbugua  
-**Date:** October 31, 2024  
-**Contact:** [Your Contact Information]  
+**Date:** October 31, 2024   
 
 **Disclaimer:** This penetration test was conducted on an isolated virtual machine environment for educational purposes. All activities were authorized and contained within a controlled lab setting.
 
-
-git config --global user.email "kelvinmbuguaw.com"
-  git config --global user.name "dracangelo"
